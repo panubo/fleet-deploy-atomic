@@ -1,2 +1,7 @@
-# fleet-deploy-atomic
-Atomic Handler for Panubo Fleet Deploy
+# Fleet Deploy Atomic Handler
+
+Atomic Handler for Panubo Fleet Deploy.
+
+## Status
+
+Work in progress prototype.
