@@ -3,7 +3,13 @@
 import json
 import sys
 import os
-from subprocess import Popen
+import subprocess
+
+
+def vulcan_frontend(key, backend):
+    j = json.loads(key)
+    j['BackendId'] = backend
+    return json.dumps(j)
 
 
 def main():
@@ -12,10 +18,10 @@ def main():
     service_name = j['service_name']
     deployment_name = j['deployment_name']
 
-    # eg
-    # web/vc-master/upstream = vc-master-123adb
-    p = Popen(['/usr/bin/env', 'etcdctl', 'set', '/web/%s/upstream' % service_name, deployment_name], env=os.environ.copy())
-    p.wait()
+    # Update Vulcan Backend
+    output = subprocess.check_output(['/usr/bin/env', 'etcdctl', 'get', '/vulcand/frontends/%s/frontend' % service_name], env=os.environ.copy())
+    subprocess.check_call(['/usr/bin/env', 'etcdctl', 'set', '/vulcand/frontends/%s/frontend' % service_name, vulcan_frontend(output, deployment_name)], env=os.environ.copy())
+
 
 if __name__ == '__main__':
     main()
