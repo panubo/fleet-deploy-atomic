@@ -20,10 +20,10 @@ def main():
 
     # Make backend directory if required
     try:
-        subprocess.check_output(['/usr/bin/env', 'etcdctl', 'ls', '/vulcand/frontends/%s' % service_name], env=os.environ.copy())
+        subprocess.check_output(['/usr/bin/env', 'etcdctl', 'ls', '/vulcand/frontends/%s/frontend' % service_name], env=os.environ.copy())
     except subprocess.CalledProcessError as e:
         if e.returncode == 4:
-            subprocess.call(['/usr/bin/env', 'etcdctl', 'mkdir', '/vulcand/frontends/%s' % service_name], env=os.environ.copy())
+            subprocess.call(['/usr/bin/env', 'etcdctl', 'mkdir', '/vulcand/frontends/%s/frontend' % service_name], env=os.environ.copy())
         else:
             raise
 
