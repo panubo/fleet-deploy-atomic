@@ -24,7 +24,7 @@ def main():
     except subprocess.CalledProcessError as e:
         if e.returncode == 4:
             subprocess.call(['/usr/bin/env', 'etcdctl', 'mkdir', '/vulcand/frontends/%s' % service_name], env=os.environ.copy())
-            subprocess.call(['/usr/bin/env', 'etcdctl', 'set', '/vulcand/frontends/%s/frontend' % service_name, ''], env=os.environ.copy())
+            subprocess.call(['/usr/bin/env', 'etcdctl', 'set', '/vulcand/frontends/%s/frontend' % service_name, '{}'], env=os.environ.copy())
         else:
             raise
 
